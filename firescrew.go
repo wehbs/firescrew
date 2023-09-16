@@ -1234,8 +1234,11 @@ func performDetectionOnObject(originalFrame *image.RGBA, frame *image.RGBA, pred
 				// Send pushover notification
 				if globalConfig.Notifications.EnablePushoverAlerts {
 
+					croppedFrame := ob.CropRectangle(frame, rect)
+					// Crop image to object
+
 					// Send pushover notification
-					err := sendPushoverNotification(globalConfig.Notifications.PushoverUserKey, globalConfig.Notifications.PushoverAppToken, "Motion alert", frame)
+					err := sendPushoverNotification(globalConfig.Notifications.PushoverUserKey, globalConfig.Notifications.PushoverAppToken, "Motion alert", croppedFrame)
 					if err != nil {
 						Log("error", fmt.Sprintf("Error sending pushover notification: %v", err))
 					}

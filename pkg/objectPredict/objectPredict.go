@@ -763,3 +763,14 @@ func RemovePadding(paddedImage *image.RGBA, originalWidth, originalHeight int) *
 
 	return unpaddedImage
 }
+
+// CropRectangle crops the given image based on the specified rectangle dimensions.
+func CropRectangle(img *image.RGBA, rect image.Rectangle) *image.RGBA {
+	// Create a new image with the dimensions of the rectangle
+	croppedImg := image.NewRGBA(image.Rect(0, 0, rect.Dx(), rect.Dy()))
+
+	// Copy the relevant section of the original image to the new image
+	draw.Draw(croppedImg, croppedImg.Bounds(), img, rect.Min, draw.Src)
+
+	return croppedImg
+}
